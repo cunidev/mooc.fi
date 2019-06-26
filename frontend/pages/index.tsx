@@ -36,6 +36,7 @@ const AllModulesQuery = gql`
         language
         name
         description
+        link
       }
     }
   }

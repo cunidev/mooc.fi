@@ -112,6 +112,7 @@ type StudyModuleTranslation @db(name:"study_module_translation"){
   name: String!
   language: String!
   description: String!
+  link: String
   study_module: StudyModule! @relation(link: INLINE, name: "StudyModuleToStudyModuleTranslation")
 }
 

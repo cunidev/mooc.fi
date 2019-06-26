@@ -16,13 +16,14 @@ const addStudyModuleTranslation = async (
     },
     resolve: async (_, args, ctx) => {
       checkAccess(ctx, { allowOrganizations: false })
-      const { language, name, description, study_module } = args
+      const { language, name, description, study_module, link } = args
       const prisma: Prisma = ctx.prisma
       const newStudyModuleTranslation: StudyModuleTranslation = await prisma.createStudyModuleTranslation(
         {
           language: language,
           name: name,
           description: description,
+          link: link,
           study_module: { connect: { id: study_module } },
         },
       )
