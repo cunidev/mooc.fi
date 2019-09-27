@@ -8,23 +8,25 @@ Cypress.on("uncaught:exception", (err, runnable) => {
 })
 
 const viewports = [
-  "macbook-15",
-  "macbook-13",
-  "macbook-11",
-  "ipad-2",
-  "ipad-mini",
-  "iphone-6+",
-  "iphone-6",
-  "iphone-5",
-  "iphone-4",
-  "iphone-3",
+  "macbook-15", // 1440x900
+  "macbook-13", // 1280x800
+  "macbook-11", // 1366x768
+  "ipad-2", // 768x1024
+  // "ipad-mini",   // 768x1024
+  "iphone-6+", // 414x736
+  "iphone-6", // 375x667
+  "iphone-5", // 320x568
+  // "iphone-4",    // 320x480
+  "iphone-3", // 320x480
 ]
 
 describe("front page", () => {
-  /*   it("/ loads and shows Finnish as default", () => {
+  it("/ loads and shows Finnish as default", () => {
     cy.visit("/")
 
-    cy.get("h1").contains("Laadukkaita, avoimia ja ilmaisia verkkokursseja kaikille")
+    cy.get("h1").contains(
+      "Laadukkaita, avoimia ja ilmaisia verkkokursseja kaikille",
+    )
   })
 
   it("/en loads and shows English", () => {
@@ -32,7 +34,6 @@ describe("front page", () => {
 
     cy.get("h1").contains("High-quality, open, and free courses for everyone!")
   })
- */
 
   describe("snapshots", () => {
     before(() => {

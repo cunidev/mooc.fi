@@ -255,6 +255,7 @@ const UserSearch = (props: UserSearchProps) => {
           <StyledTextField
             id="standard-search"
             label="Search by string"
+            name="search"
             type="search"
             margin="normal"
             autoComplete="off"
@@ -263,6 +264,7 @@ const UserSearch = (props: UserSearchProps) => {
 
           <StyledButton
             variant="contained"
+            data-testid="search-button"
             onClick={async (event: any) => {
               event.preventDefault()
               loadData({

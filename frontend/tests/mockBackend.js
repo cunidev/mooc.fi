@@ -78,7 +78,7 @@ const createMockBackend = async ({ redirectHandler }) => {
       results[getKey(query, variables)] = result
     }
 
-    resolver[query] = (_, args) =>
+    resolver[query] = args =>
       args ? results[getKey(query, args)] || result : result
 
     res.json(result)
