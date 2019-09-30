@@ -153,7 +153,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     loadData({
       variables: {
         search: searchText,
-        last: rowsPerPage,
+        last: rowsPerPage - (rowsPerPage - (count % rowsPerPage)),
       },
     })
     setPage(Math.max(0, Math.ceil(count / rowsPerPage) - 1))

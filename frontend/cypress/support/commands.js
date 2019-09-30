@@ -26,7 +26,7 @@
 import "@testing-library/cypress/add-commands"
 import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command"
 
-const mockGraphQl = ({ query, result, variables }) =>
+const mockGraphQl = ({ queries, query, result, variables }) =>
   cy.request({
     url: "http://localhost:4001/mock",
     method: "POST",
@@ -34,17 +34,26 @@ const mockGraphQl = ({ query, result, variables }) =>
       query,
       result,
       variables,
+      queries,
     },
     options: { headers: { "Content-Type": "application/json" } },
   })
 
 Cypress.Commands.add("mockGraphQl", params => {
   if (Array.isArray(params)) {
-    Promise.all(params.map(p => mockGraphQl(p)))
+    mockGraphQl({ queries: params })
+    // Promise.all(params.map(p => mockGraphQl(p)))
   } else {
     mockGraphQl(params)
   }
 })
+
+Cypress.Commands.add("resetMockGraphQl", () =>
+  cy.request({
+    url: "http://localhost:4001/mock",
+    method: "DELETE",
+  }),
+)
 
 Cypress.Commands.add("mockTmc", ({ accessToken, details }) => {
   cy.server()

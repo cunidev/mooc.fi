@@ -62,6 +62,15 @@ const createMockBackend = async ({ redirectHandler }) => {
     }
   - creates (or replaces) a resolver for said query returning result
   - if no variables specified, query return same result irregardless of arguments it gets
+  - if variables specified, order doesn't matter
+
+  You can also post an array of queries:
+    {
+      queries: [{
+        query: "QUERY_NAME"
+        ...etc, as above
+      }]
+    }
 */
 
   const sortObj = o =>
@@ -71,9 +80,7 @@ const createMockBackend = async ({ redirectHandler }) => {
   const getKey = (query, variables) =>
     `${query}#${JSON.stringify(sortObj(variables))}`
 
-  mockBackend.post("/mock", (req, res) => {
-    const { query, variables, result } = req.body
-
+  const createMock = ({ query, variables, result }) => {
     if (variables) {
       results[getKey(query, variables)] = result
     }
@@ -81,7 +88,19 @@ const createMockBackend = async ({ redirectHandler }) => {
     resolver[query] = args =>
       args ? results[getKey(query, args)] || result : result
 
-    res.json(result)
+    return result
+  }
+
+  mockBackend.post("/mock", (req, res) => {
+    const { query, variables, result, queries } = req.body
+
+    if (queries && Array.isArray(queries)) {
+      const queryArrayResult = queries.map(q => createMock(q))
+
+      res.json(queryArrayResult)
+    } else {
+      res.json(createMock({ query, variables, result }))
+    }
   })
 
   mockBackend.delete("/mock", (req, res) => {
@@ -113,7 +132,7 @@ const createMockBackend = async ({ redirectHandler }) => {
     graphqlHTTP({
       schema,
       rootValue: resolver,
-      context: { schemaCode },
+      context: { schemaCode }, // probably not needed? can't remember why it is here
       graphiql: true,
     })(req, res)
   })
