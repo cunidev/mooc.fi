@@ -110,6 +110,7 @@ const createMockBackend = async ({ redirectHandler }) => {
     res.json({ ok: true })
   })
 
+  // TODO: replace this with headers
   mockBackend.post("/signin", (req, res) => {
     const { details, accessToken } = req.body
 

@@ -14,14 +14,13 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | null = null
 const production = process.env.NODE_ENV === "production"
 
 // @ts-ignore
-const cypress = process.env.CYPRESS === "true" || (window && window.Cypress)
-
-// @ts-ignore
-/* const cypress =
+const cypress =
   process.env.CYPRESS === "true" ||
   (typeof window !== "undefined" &&
+    // @ts-ignore
     window.Cypress &&
-    window.Cypress.env("CYPRESS") === "true") */
+    // @ts-ignore
+    window.Cypress.env("CYPRESS") === "true")
 
 function create(initialState: any, accessToken?: string) {
   const authLink = setContext((_, { headers }) => ({
