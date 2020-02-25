@@ -198,7 +198,7 @@ Pick<
               name="start_date"
               label={t("courseStartDate")}
               error={errors.start_date}
-              component={(props: any) => <DatePickerField {...props} />}
+              component={DatePickerField}
               required
               InputLabelProps={inputLabelProps}
               emptyLabel={t("courseDatePlaceholder")}

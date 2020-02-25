@@ -91,7 +91,7 @@ const CourseVariantEditForm = ({
                                 if (!variant.id && variant.slug === "") {
                                   helpers.remove(index)
                                 } else {
-                                  return confirm({
+                                  confirm({
                                     title: t("confirmationAreYouSure"),
                                     description: t("confirmationRemoveVariant"),
                                     confirmationText: t("confirmationYes"),
